@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cloud-Based Agriculture Management System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f0fdf4;
+    color:#1f2937;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(135deg,#15803d,#22c55e);
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+
+header h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+header p{
+    opacity:.9;
+}
+
+/* CONTAINER */
+.container{
+    width:94%;
+    max-width:1200px;
+    margin:25px auto;
+}
+
+/* DASHBOARD */
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:30px;
+}
+
+.stat h2{
+    color:#15803d;
+    font-size:28px;
+    margin-top:8px;
+}
+
+.stat p{
+    color:#64748b;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+    margin-bottom:25px;
+}
+
+.card h2{
+    color:#166534;
+    margin-bottom:20px;
+}
+
+/* FORM */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:2px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#22c55e;
+}
+
+/* BUTTONS */
+button{
+    border:none;
+    padding:11px 18px;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.add-btn{
+    background:#16a34a;
+}
+
+.add-btn:hover{
+    background:#15803d;
+}
+
+.delete-btn{
+    background:#dc2626;
+}
+
+.delete-btn:hover{
+    background:#b91c1c;
+}
+
+.clear-btn{
+    background:#64748b;
+}
+
+/* SEARCH */
+.search{
+    margin-bottom:15px;
+}
+
+.search input{
+    max-width:400px;
+}
+
+/* TABLE */
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+}
+
+th{
+    background:#dcfce7;
+    color:#166534;
+}
+
+tr:hover{
+    background:#f0fdf4;
+}
+
+/* WEATHER */
+.weather{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.weather-card{
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.weather-card .icon{
+    font-size:40px;
+}
+
+.weather-card h3{
+    color:#1d4ed8;
+    margin:8px 0;
+}
+
+/* ALERTS */
+.alert{
+    padding:15px;
+    border-radius:9px;
+    margin-bottom:10px;
+    border-left:5px solid;
+}
+
+.alert-success{
+    background:#dcfce7;
+    border-color:#16a34a;
+}
+
+.alert-warning{
+    background:#fef3c7;
+    border-color:#f59e0b;
+}
+
+.alert-danger{
+    background:#fee2e2;
+    border-color:#dc2626;
+}
+
+/* CHART */
+.chart{
+    height:260px;
+    display:flex;
+    align-items:end;
+    gap:15px;
+    padding:20px;
+    border-bottom:2px solid #cbd5e1;
+}
+
+.bar{
+    flex:1;
+    background:linear-gradient(to top,#15803d,#4ade80);
+    border-radius:6px 6px 0 0;
+    position:relative;
+    min-height:20px;
+}
+
+.bar span{
+    position:absolute;
+    top:-25px;
+    width:100%;
+    text-align:center;
+    font-size:12px;
+}
+
+.bar-label{
+    text-align:center;
+    margin-top:8px;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:25px;
+    color:#64748b;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .weather{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px){
+    .dashboard,
+    .form-grid,
+    .weather{
+        grid-template-columns:1fr;
+    }
+
+    header h1{
+        font-size:23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>🌾 Cloud-Based Agriculture Management System</h1>
+
+    <p>
+        Smart Farming • Crop Management • Inventory • Sales • Weather Monitoring
+    </p>
+
+</header>
+
+
+<div class="container">
+
+<!-- =====================================================
+     DASHBOARD STATISTICS
+===================================================== -->
+
+<div class="dashboard">
+
+    <div class="stat">
+
+        <div class="stat-icon">🌱</div>
+
+        <h2 id="cropCount">0</h2>
+
+        <p>Total Crops</p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">👨‍🌾</div>
+
+        <h2 id="farmerCount">0</h2>
+
+        <p>Total Farmers</p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">📦</div>
+
+        <h2 id="inventoryCount">0</h2>
+
+        <p>Inventory Items</p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">💰</div>
+
+        <h2 id="totalSales">₹0</h2>
+
+        <p>Total Sales</p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     WEATHER
+===================================================== -->
+
+<div class="card">
+
+    <h2>🌤️ Weather Monitoring</h2>
+
+    <div class="weather">
+
+        <div class="weather-card">
+
+            <div class="icon">☀️</div>
+
+            <h3>32°C</h3>
+
+            <p>Temperature</p>
+
+        </div>
+
+
+        <div class="weather-card">
+
+            <div class="icon">💧</div>
+
+            <h3>68%</h3>
+
+            <p>Humidity</p>
+
+        </div>
+
+
+        <div class="weather-card">
+
+            <div class="icon">🌧️</div>
+
+            <h3>20%</h3>
+
+            <p>Rain Probability</p>
+
+        </div>
+
+
+        <div class="weather-card">
+
+            <div class="icon">💨</div>
+
+            <h3>14 km/h</h3>
+
+            <p>Wind Speed</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FARMER MANAGEMENT
+===================================================== -->
+
+<div class="card">
+
+    <h2>👨‍🌾 Farmer Management</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Farmer Name</label>
+
+            <input
+                id="farmerName"
+                placeholder="Enter farmer name">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Phone</label>
+
+            <input
+                id="farmerPhone"
+                placeholder="Enter phone number">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Farm Location</label>
+
+            <input
+                id="farmLocation"
+                placeholder="Village / District">
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addFarmer()">
+
+        + Add Farmer
+
+    </button>
+
+
+    <br><br>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Phone</th>
+
+                    <th>Location</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="farmerTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CROP MANAGEMENT
+===================================================== -->
+
+<div class="card">
+
+    <h2>🌱 Crop Management</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Crop Name</label>
+
+            <input
+                id="cropName"
+                placeholder="e.g. Rice">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Area (Acres)</label>
+
+            <input
+                type="number"
+                id="cropArea"
+                placeholder="Enter acres">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Season</label>
+
+            <select id="cropSeason">
+
+                <option>Summer</option>
+
+                <option>Winter</option>
+
+                <option>Monsoon</option>
+
+                <option>Spring</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Expected Yield (kg)</label>
+
+            <input
+                type="number"
+                id="cropYield"
+                placeholder="Expected yield">
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addCrop()">
+
+        + Add Crop
+
+    </button>
+
+
+    <br><br>
+
+
+    <div class="search">
+
+        <input
+            id="cropSearch"
+            onkeyup="displayCrops()"
+            placeholder="🔍 Search crops...">
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Crop</th>
+
+                    <th>Area</th>
+
+                    <th>Season</th>
+
+                    <th>Expected Yield</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="cropTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INVENTORY
+===================================================== -->
+
+<div class="card">
+
+    <h2>📦 Farm Inventory</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Item Name</label>
+
+            <input
+                id="itemName"
+                placeholder="e.g. Fertilizer">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Quantity</label>
+
+            <input
+                type="number"
+                id="itemQuantity"
+                placeholder="Quantity">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Unit</label>
+
+            <select id="itemUnit">
+
+                <option>Kg</option>
+
+                <option>Liters</option>
+
+                <option>Bags</option>
+
+                <option>Pieces</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addInventory()">
+
+        + Add Inventory
+
+    </button>
+
+
+    <br><br>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Item</th>
+
+                    <th>Quantity</th>
+
+                    <th>Unit</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="inventoryTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SALES
+===================================================== -->
+
+<div class="card">
+
+    <h2>💰 Crop Sales</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Crop</label>
+
+            <input
+                id="saleCrop"
+                placeholder="Crop sold">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Quantity (kg)</label>
+
+            <input
+                type="number"
+                id="saleQuantity"
+                placeholder="Quantity">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Sale Amount (₹)</label>
+
+            <input
+                type="number"
+                id="saleAmount"
+                placeholder="Amount">
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addSale()">
+
+        + Record Sale
+
+    </button>
+
+
+    <br><br>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Crop</th>
+
+                    <th>Quantity</th>
+
+                    <th>Amount</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="salesTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SALES CHART
+===================================================== -->
+
+<div class="card">
+
+    <h2>📊 Sales Overview</h2>
+
+    <div class="chart">
+
+        <div
+            class="bar"
+            style="height:40%">
+
+            <span>40%</span>
+
+        </div>
+
+
+        <div
+            class="bar"
+            style="height:60%">
+
+            <span>60%</span>
+
+        </div>
+
+
+        <div
+            class="bar"
+            style="height:75%">
+
+            <span>75%</span>
+
+        </div>
+
+
+        <div
+            class="bar"
+            style="height:50%">
+
+            <span>50%</span>
+
+        </div>
+
+
+        <div
+            class="bar"
+            style="height:90%">
+
+            <span>90%</span>
+
+        </div>
+
+
+        <div
+            class="bar"
+            style="height:70%">
+
+            <span>70%</span>
+
+        </div>
+
+    </div>
+
+
+    <div style="
+        display:flex;
+        justify-content:space-around;
+        color:#64748b;
+        margin-top:10px;">
+
+        <span>Jan</span>
+
+        <span>Feb</span>
+
+        <span>Mar</span>
+
+        <span>Apr</span>
+
+        <span>May</span>
+
+        <span>Jun</span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FARM ALERTS
+===================================================== -->
+
+<div class="card">
+
+    <h2>🔔 Farm Alerts & Recommendations</h2>
+
+
+    <div class="alert alert-success">
+
+        🌱 <strong>Crop Health:</strong>
+        Current crops are ready for regular monitoring.
+
+    </div>
+
+
+    <div class="alert alert-warning">
+
+        💧 <strong>Irrigation Alert:</strong>
+        Check soil moisture before the next irrigation cycle.
+
+    </div>
+
+
+    <div class="alert alert-danger">
+
+        🐛 <strong>Pest Warning:</strong>
+        Inspect crops regularly for signs of pest activity.
+
+    </div>
+
+
+    <div class="alert alert-success">
+
+        🌤️ <strong>Weather:</strong>
+        Weather conditions are currently suitable for field activities.
+
+    </div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+    Cloud-Based Agriculture Management System © 2026
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let farmers =
+    JSON.parse(
+        localStorage.getItem(
+            "farmers"
+        )
+    ) || [];
+
+
+let crops =
+    JSON.parse(
+        localStorage.getItem(
+            "crops"
+        )
+    ) || [];
+
+
+let inventory =
+    JSON.parse(
+        localStorage.getItem(
+            "inventory"
+        )
+    ) || [];
+
+
+let sales =
+    JSON.parse(
+        localStorage.getItem(
+            "sales"
+        )
+    ) || [];
+
+
+/* =====================================================
+   FARMERS
+===================================================== */
+
+function addFarmer(){
+
+    const name =
+        document.getElementById(
+            "farmerName"
+        ).value.trim();
+
+    const phone =
+        document.getElementById(
+            "farmerPhone"
+        ).value.trim();
+
+    const location =
+        document.getElementById(
+            "farmLocation"
+        ).value.trim();
+
+
+    if(
+        !name ||
+        !phone ||
+        !location
+    ){
+
+        alert(
+            "Please fill all farmer details."
+        );
+
+        return;
+
+    }
+
+
+    farmers.push({
+
+        name:name,
+
+        phone:phone,
+
+        location:location
+
+    });
+
+
+    saveData();
+
+    displayFarmers();
+
+
+    document.getElementById(
+        "farmerName"
+    ).value="";
+
+    document.getElementById(
+        "farmerPhone"
+    ).value="";
+
+    document.getElementById(
+        "farmLocation"
+    ).value="";
+
+}
+
+
+/* =====================================================
+   DISPLAY FARMERS
+===================================================== */
+
+function displayFarmers(){
+
+    const table =
+        document.getElementById(
+            "farmerTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    farmers.forEach(
+        (farmer,index)=>{
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(farmer.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(farmer.phone)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(farmer.location)}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteFarmer(${index})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   DELETE FARMER
+===================================================== */
+
+function deleteFarmer(index){
+
+    if(
+        confirm(
+            "Delete this farmer?"
+        )
+    ){
+
+        farmers.splice(
+            index,
+            1
+        );
+
+        saveData();
+
+        displayFarmers();
+
+    }
+
+}
+
+
+/* =====================================================
+   CROPS
+===================================================== */
+
+function addCrop(){
+
+    const name =
+        document.getElementById(
+            "cropName"
+        ).value.trim();
+
+    const area =
+        document.getElementById(
+            "cropArea"
+        ).value;
+
+    const season =
+        document.getElementById(
+            "cropSeason"
+        ).value;
+
+    const yieldAmount =
+        document.getElementById(
+            "cropYield"
+        ).value;
+
+
+    if(
+        !name ||
+        !area ||
+        !yieldAmount
+    ){
+
+        alert(
+            "Please fill all crop details."
+        );
+
+        return;
+
+    }
+
+
+    crops.push({
+
+        name:name,
+
+        area:area,
+
+        season:season,
+
+        yield:yieldAmount
+
+    });
+
+
+    saveData();
+
+    displayCrops();
+
+
+    document.getElementById(
+        "cropName"
+    ).value="";
+
+    document.getElementById(
+        "cropArea"
+    ).value="";
+
+    document.getElementById(
+        "cropYield"
+    ).value="";
+
+}
+
+
+/* =====================================================
+   DISPLAY CROPS
+===================================================== */
+
+function displayCrops(){
+
+    const table =
+        document.getElementById(
+            "cropTable"
+        );
+
+
+    const search =
+        document.getElementById(
+            "cropSearch"
+        ).value.toLowerCase();
+
+
+    table.innerHTML="";
+
+
+    crops.forEach(
+        (crop,index)=>{
+
+            if(
+                !crop.name
+                .toLowerCase()
+                .includes(search)
+            ){
+
+                return;
+
+            }
+
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        🌱
+                        ${escapeHTML(crop.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(crop.area)}
+                        acres
+                    </td>
+
+                    <td>
+                        ${escapeHTML(crop.season)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(crop.yield)}
+                        kg
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteCrop(${index})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   DELETE CROP
+===================================================== */
+
+function deleteCrop(index){
+
+    if(
+        confirm(
+            "Delete this crop?"
+        )
+    ){
+
+        crops.splice(
+            index,
+            1
+        );
+
+        saveData();
+
+        displayCrops();
+
+    }
+
+}
+
+
+/* =====================================================
+   INVENTORY
+===================================================== */
+
+function addInventory(){
+
+    const name =
+        document.getElementById(
+            "itemName"
+        ).value.trim();
+
+    const quantity =
+        document.getElementById(
+            "itemQuantity"
+        ).value;
+
+    const unit =
+        document.getElementById(
+            "itemUnit"
+        ).value;
+
+
+    if(
+        !name ||
+        !quantity
+    ){
+
+        alert(
+            "Please enter inventory details."
+        );
+
+        return;
+
+    }
+
+
+    inventory.push({
+
+        name:name,
+
+        quantity:quantity,
+
+        unit:unit
+
+    });
+
+
+    saveData();
+
+    displayInventory();
+
+
+    document.getElementById(
+        "itemName"
+    ).value="";
+
+    document.getElementById(
+        "itemQuantity"
+    ).value="";
+
+}
+
+
+/* =====================================================
+   DISPLAY INVENTORY
+===================================================== */
+
+function displayInventory(){
+
+    const table =
+        document.getElementById(
+            "inventoryTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    inventory.forEach(
+        (item,index)=>{
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        📦
+                        ${escapeHTML(item.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.quantity)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.unit)}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteInventory(${index})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   DELETE INVENTORY
+===================================================== */
+
+function deleteInventory(index){
+
+    if(
+        confirm(
+            "Delete this inventory item?"
+        )
+    ){
+
+        inventory.splice(
+            index,
+            1
+        );
+
+        saveData();
+
+        displayInventory();
+
+    }
+
+}
+
+
+/* =====================================================
+   SALES
+===================================================== */
+
+function addSale(){
+
+    const crop =
+        document.getElementById(
+            "saleCrop"
+        ).value.trim();
+
+    const quantity =
+        document.getElementById(
+            "saleQuantity"
+        ).value;
+
+    const amount =
+        document.getElementById(
+            "saleAmount"
+        ).value;
+
+
+    if(
+        !crop ||
+        !quantity ||
+        !amount
+    ){
+
+        alert(
+            "Please enter all sale details."
+        );
+
+        return;
+
+    }
+
+
+    sales.push({
+
+        crop:crop,
+
+        quantity:Number(
+            quantity
+        ),
+
+        amount:Number(
+            amount
+        )
+
+    });
+
+
+    saveData();
+
+    displaySales();
+
+
+    document.getElementById(
+        "saleCrop"
+    ).value="";
+
+    document.getElementById(
+        "saleQuantity"
+    ).value="";
+
+    document.getElementById(
+        "saleAmount"
+    ).value="";
+
+}
+
+
+/* =====================================================
+   DISPLAY SALES
+===================================================== */
+
+function displaySales(){
+
+    const table =
+        document.getElementById(
+            "salesTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    sales.forEach(
+        (sale,index)=>{
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        🌾
+                        ${escapeHTML(sale.crop)}
+                    </td>
+
+                    <td>
+                        ${sale.quantity} kg
+                    </td>
+
+                    <td>
+                        ₹${sale.amount.toLocaleString("en-IN")}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteSale(${index})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   DELETE SALE
+===================================================== */
+
+function deleteSale(index){
+
+    if(
+        confirm(
+            "Delete this sale?"
+        )
+    ){
+
+        sales.splice(
+            index,
+            1
+        );
+
+        saveData();
+
+        displaySales();
+
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function updateDashboard(){
+
+    document.getElementById(
+        "cropCount"
+    ).innerText =
+        crops.length;
+
+
+    document.getElementById(
+        "farmerCount"
+    ).innerText =
+        farmers.length;
+
+
+    document.getElementById(
+        "inventoryCount"
+    ).innerText =
+        inventory.length;
+
+
+    const total =
+        sales.reduce(
+            (sum,sale)=>
+                sum +
+                Number(sale.amount),
+            0
+        );
+
+
+    document.getElementById(
+        "totalSales"
+    ).innerText =
+        "₹" +
+        total.toLocaleString(
+            "en-IN"
+        );
+
+}
+
+
+/* =====================================================
+   SAVE DATA
+===================================================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        "farmers",
+        JSON.stringify(farmers)
+    );
+
+
+    localStorage.setItem(
+        "crops",
+        JSON.stringify(crops)
+    );
+
+
+    localStorage.setItem(
+        "inventory",
+        JSON.stringify(inventory)
+    );
+
+
+    localStorage.setItem(
+        "sales",
+        JSON.stringify(sales)
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displayFarmers();
+
+displayCrops();
+
+displayInventory();
+
+displaySales();
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
